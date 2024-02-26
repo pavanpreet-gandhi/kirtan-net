@@ -1,0 +1,37 @@
+all_sura: [s, r., r, g., g, m, m*, p, d., d, n., n]
+
+saptak:
+  lower: '-'
+  upper: '+'
+
+raag:
+  bilaval:
+    sura: [s, r, g, m, p, d, n, s+]
+    aroh: [s, r, g, m, g, r, g, p, d, n, s+]
+    avroh: [s+, n, d, p, g, r, g, p, m, g, r, s]
+    vadi: d
+    samvadi: g
+    info:
+      thaat: bilaval
+      jati: sampuran-sampuran
+  
+  asa:
+    sura: [s, r, g, m, p, d, n, s+]
+    aroh: [s, r, m, p, d, s+]
+    avroh: [s+, n, d, p, m, g, r, s]
+    aroh_varjit: [g, n]
+    vadi: m
+    samvadi: s
+    info:
+      thaat: bilaval
+      jati: aurav-sampuran
+  
+  bhairo:
+    sura: [s, r., g, m, p, d., n, s+]
+    aroh: [s, r., g, m, p, d., n, s+]
+    avroh: [s+, n, d., p, m, g, r., s]
+    vadi: d.
+    samvadi: r.
+    info:
+      thaat: bhairo
+      jati: sampuran-sampuran
