@@ -1,4 +1,4 @@
-# Kirtan Net
+# KirtanNet
 A data driven exploration into the musical dynamics of kirtan.
 
 ## Definitions
