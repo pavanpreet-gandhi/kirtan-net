@@ -18,7 +18,7 @@ class Saaj:
     """
     
     
-    def __init__(self, tempo=60, instrument='Accordian', sa_note=60):
+    def __init__(self, tempo=60, instrument='Accordian', sa_note=61):
         """
         Initializes a new instrument.
         
