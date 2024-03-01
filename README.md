@@ -2,6 +2,7 @@
 A data driven exploration into the musical dynamics of kirtan.
 
 ## Definitions
+1. **Kirtan**:
 1. **Raag**: 
 1. **Saaj**: 
 1. **Waja**: 
