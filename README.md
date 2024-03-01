@@ -1,4 +1,5 @@
-# Raag Net (WIP)
+# Kirtan Net
+A data driven exploration into the musical dynamics of kirtan.
 
 ## Definitions
 1. **Raag**: 
