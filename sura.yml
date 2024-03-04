@@ -17,6 +17,7 @@ raags:
     info:
       thaat: bilaval
       jati: sampuran-sampuran
+      time: 09-12
   
   asa:
     sura: [s, r, g, m, p, d, n]
@@ -28,6 +29,7 @@ raags:
     info:
       thaat: bilaval
       jati: aurav-sampuran
+      time: 03-06
   
   bhairo:
     sura: [s, r., g, m, p, d., n]
@@ -38,6 +40,7 @@ raags:
     info:
       thaat: bhairo
       jati: sampuran-sampuran
+      time: 00-03
   
   suhi:
     sura: [s, r, g, m, p, d, n., n]
@@ -47,4 +50,5 @@ raags:
     samvadi: s
     info:
       thaat: bilaval
-      jati: ampuran-sampuran
+      jati: sampuran-sampuran
+      time: 09-12
