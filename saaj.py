@@ -4,51 +4,25 @@ import utils
 
 class Saaj:
     """
-    A musical instrument class that allows playing notes and frequencies.
-    
-    Args:
-        tempo (float, optional): The tempo of the session in beats per minute (default is 60).
-        instrument (str, optional): The name of the instrument (default is 'Accordian').
+    A musical instrument class that allows playing notes in accordance with the notation.
     
     Attributes:
-        session (Session): A Scamp session for managing musical parts.
-        instrument (Part): The musical part associated with the instrument.
-        sa_note (int): The MIDI note number of the 'sa' sur.
-        sur_to_note (dict): A dictionary mapping each sur to its corresponding MIDI note number.
+        notation (dict): The notation information loaded from the configuration file.
     """
+    notation = utils.load_yaml('./configuration/notation.yml')
     
-    
-    def __init__(self, tempo=60, instrument='Accordian', sa_note=61):
+    def __init__(self, tempo=60, instrument='accordian', sa_midi=61):
         """
         Initializes a new instrument.
         
         Args:
             tempo (float, optional): The tempo of the session in beats per minute (default is 60).
             instrument (str, optional): The name of the instrument (default is 'Accordian').
-            sa_note (int, optional): The MIDI note number of the 'sa' sur (default is 61).
+            sa_midi (int, optional): The MIDI note number of the 'sa' sur (default is 61).
         """
         self.session = Session(tempo)
         self.instrument = self.session.new_part(name=instrument)
-        self.sa_note = sa_note
-        self.sura = utils.load_sura()
-        self.set_sa_note(self.sa_note)
-    
-    
-    def set_sa_note(self, sa_note):
-        """
-        Sets the 'sa' sur note and updates the sur to note mapping accordingly.
-        
-        Args:
-            sa_note (int): The MIDI note number of the 'sa' sur.
-        """
-        self.sa_note = sa_note
-        self.sur_to_note = {}
-        for i, sur in enumerate(self.sura.all_sura):
-            sur_note = self.sa_note + i
-            self.sur_to_note[sur] = sur_note
-            self.sur_to_note[sur+self.sura.saptak.lower] = sur_note - len(self.sura.all_sura)
-            self.sur_to_note[sur+self.sura.saptak.upper] = sur_note + len(self.sura.all_sura)
-        self.sur_to_note[''] = None
+        self.sa_midi = sa_midi
     
     
     @staticmethod
@@ -79,78 +53,28 @@ class Saaj:
         return 440 * 2**(note-69)/12
     
     
-    def play_note(self, note, volume=1.0, duration=1.0):
+    def play_note(self, note, volume=1.0, duration=1.0, mode='sur'):
         """
-        Plays a single note using the instrument.
+        Plays a single note using the instrument. Valid representations of the note include:
+            1. Sur in accordance with the notation.
+            2. MIDI note number.
+            3. Frequency in Hertz.
         
         Args:
-            note (float): The MIDI note number of the desired note.
+            note (str or float): The note to be played represented as a sur, midi note number, or frequency.
             volume (float, optional): The volume of the note between 0 and 1 (default is 1.0).
             duration (float, optional): The duration of the note in seconds (default is 1.0).
+            mode (str, optional): Valid options are 'sur', 'midi', or 'freq' (default is 'sur').
         """
-        self.instrument.play_note(note, volume, duration)
-    
-    
-    def play_frequency(self, frequency, volume=1.0, duration=1.0):
-        """
-        Plays a note at a specific frequency using the instrument.
-        
-        Args:
-            frequency (float): The desired frequency in Hertz.
-            volume (float, optional): The volume of the note between 0 and 1 (default is 1.0).
-            duration (float, optional): The duration of the note in seconds (default is 1.0).
-        """
-        note = self.frequency_to_midi(frequency)
-        self.instrument.play_note(note, volume, duration)
-    
-    
-    def play_sur(self, sur, volume=1.0, duration=1.0):
-        """
-        Plays a sur using the instrument.
-        
-        Args:
-            sur (str): The sur to be played.
-            volume (float, optional): The volume of the note between 0 and 1 (default is 1.0).
-            duration (float, optional): The duration of the note in seconds (default is 1.0).
-        """
-        note = self.sur_to_note[sur]
-        self.play_note(note, volume, duration)
-    
-    
-    def play_notes(self, notes, volume=1.0, duration=1.0):
-        """
-        Plays a sequence of notes using the instrument.
-        
-        Args:
-            notes (list): A list of notes to be played in sequence.
-            volume (float, optional): The volume of the note between 0 and 1 (default is 1.0).
-            duration (float, optional): The duration of each note in the sequence in seconds (default is 1.0).
-        """
-        for note in notes:
-            self.play_note(note, volume, duration)
-    
-    
-    def sura_to_notes(self, sura):
-        """
-        Converts a sequence of sura into notes.
-        
-        Args:
-            sura (list): A list of sura to be converted into notes.
-        
-        Returns:
-            list: A list of MIDI note numbers corresponding to the sura.
-        """
-        return [self.sur_to_note[sur] for sur in sura]
-    
-    
-    def play_sura(self, sura, volume=1.0, duration=1.0):
-        """
-        Plays a sequence of sura using the instrument.
-        
-        Args:
-            sura (list): A list of sura to be played in sequence.
-            volume (float, optional): The volume of the note between 0 and 1 (default is 1.0).
-            duration (float, optional): The duration of each sur in the sequence in seconds (default is 1.0).
-        """
-        notes = self.sura_to_notes(sura)
-        self.play_notes(notes)
+        if mode=='sur':
+            if note=='':
+                midi_note = None
+            else:
+                midi_note = self.sa_midi + self.notation.sur_to_interval[note]
+        elif mode=='midi':
+            midi_note = note
+        elif mode=='freq':
+            midi_note = self.frequency_to_midi(note)
+        else:
+            return
+        self.instrument.play_note(midi_note, volume, duration)

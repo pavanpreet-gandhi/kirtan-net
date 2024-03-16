@@ -1,5 +1,5 @@
 # KirtanNet
-A data driven exploration into the musical dynamics of kirtan.
+A data driven exploration and heuristic based into the musical dynamics of kirtan.
 
 ## Definitions
 
@@ -32,7 +32,7 @@ A data driven exploration into the musical dynamics of kirtan.
 1. **Jati**: Jati indicates the number of notes in a raag. There are different jatis, such as sampuran (7 notes), aurav (5 notes), and shadav (6 notes), which define the complexity and structure of a raag.
 
 ## Python files
-1. `Saaj.py`
+1. `saaj.py`
 1. `utils.py`
 
 ## Notebooks

@@ -1,0 +1,51 @@
+sura: [s, r., r, g., g, m, m*, p, d., d, n., n]
+
+
+saptak:
+  lower: '-'
+  upper: '+'
+
+
+sur_to_interval:
+
+  # lower saptak
+  s-  : -12
+  r.- : -11
+  r-  : -10
+  g.- :  -9
+  g-  :  -8
+  m-  :  -7
+  m*- :  -6
+  p-  :  -5
+  d.- :  -4
+  d-  :  -3
+  n.- :  -2
+  n-  :  -1
+
+  # middle saptak
+  s   :   0
+  r.  :   1
+  r   :   2
+  g.  :   3
+  g   :   4
+  m   :   5
+  m*  :   6
+  p   :   7
+  d.  :   8
+  d   :   9
+  n.  :  10
+  n   :  11
+
+  # upper saptak
+  s+  :  12
+  r.+ :  13
+  r+  :  14
+  g.+ :  15
+  g+  :  16
+  m+  :  17
+  m*+ :  18
+  p+  :  19
+  d.+ :  20
+  d+  :  21
+  n.+ :  22
+  n+  :  23
