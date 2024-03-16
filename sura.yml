@@ -50,7 +50,7 @@ raags:
       jati: sampuran-sampuran
 
   gond:
-    sura: [s, r, g, m, p, d, n, s+]
+    sura: [s, r, g, m, p, d, n]
     aroh: [s, r, g, m, p, d, n, d, n, s+]
     avroh: [s+, n, d, n, p, m, g, r, s]
     vadi: s
