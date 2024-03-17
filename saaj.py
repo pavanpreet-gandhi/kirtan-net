@@ -40,23 +40,40 @@ class Saaj:
     
     
     @staticmethod
-    def midi_to_frequency(note):
+    def midi_to_frequency(midi):
         """
         Converts a MIDI note number to its corresponding frequency.
         
         Args:
-            note (float): The MIDI note number.
+            midi (float): The MIDI note number.
         
         Returns:
             float: The frequency in Hertz corresponding to the input MIDI note.
         """
-        return 440 * 2**(note-69)/12
+        return 440 * 2**(midi-69)/12
+    
+    
+    def sur_to_midi(self, sur):
+        """
+        Converts a sur to its corresponding MIDI note number.
+        
+        Args:
+            sur (str): The sur in accordinace with the notation configuration file.
+        
+        Returns:
+            float: The MIDI note number corresponding to the sur frequency.
+        """
+        if sur=='':
+            midi_note = None
+        else:
+            midi_note = self.sa_midi + self.notation.sur_to_interval[sur]
+        return midi_note
     
     
     def play_note(self, note, volume=1.0, duration=1.0, mode='sur'):
         """
         Plays a single note using the instrument. Valid representations of the note include:
-            1. Sur in accordance with the notation.
+            1. Sur in accordance with the notation configuration file.
             2. MIDI note number.
             3. Frequency in Hertz.
         
@@ -67,10 +84,7 @@ class Saaj:
             mode (str, optional): Valid options are 'sur', 'midi', or 'freq' (default is 'sur').
         """
         if mode=='sur':
-            if note=='':
-                midi_note = None
-            else:
-                midi_note = self.sa_midi + self.notation.sur_to_interval[note]
+            midi_note = self.sur_to_midi(note)
         elif mode=='midi':
             midi_note = note
         elif mode=='freq':
