@@ -1,5 +1,6 @@
-from scamp import Session
 import numpy as np
+from bidict import bidict
+from scamp import Session
 import utils
 
 class Saaj:
@@ -10,6 +11,7 @@ class Saaj:
         notation (dict): The notation information loaded from the configuration file.
     """
     notation = utils.load_yaml('./configuration/notation.yml')
+    sur_to_degree = bidict(notation.sur_to_degree)
     
     def __init__(self, tempo=60, instrument='accordian', sa_midi=61):
         """
@@ -66,7 +68,7 @@ class Saaj:
         if sur=='':
             midi_note = None
         else:
-            midi_note = self.sa_midi + self.notation.sur_to_interval[sur]
+            midi_note = self.sa_midi + self.sur_to_degree[sur]
         return midi_note
     
     

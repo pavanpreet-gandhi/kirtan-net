@@ -6,7 +6,7 @@ saptak:
   upper: '+'
 
 
-sur_to_interval:
+sur_to_degree:
 
   # lower saptak
   s-  : -12
