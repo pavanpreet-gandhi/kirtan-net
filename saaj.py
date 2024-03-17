@@ -72,7 +72,7 @@ class Saaj:
     
     def play_note(self, note, volume=1.0, duration=1.0, mode='sur'):
         """
-        Plays a single note using the instrument. Valid representations of the note include:
+        Plays a single note using the instrument. Valid representations of a note include:
             1. Sur in accordance with the notation configuration file.
             2. MIDI note number.
             3. Frequency in Hertz.
@@ -92,3 +92,27 @@ class Saaj:
         else:
             return
         self.instrument.play_note(midi_note, volume, duration)
+    
+    
+    def play_chord(self, chord, volume=1.0, duration=1.0, mode='sur'):
+        """
+        Plays a chord (simultanious notes) using the instrument. Valid representations of a chord include a list of:
+            1. Sur in accordance with the notation configuration file.
+            2. MIDI note number.
+            3. Frequency in Hertz.
+        
+        Args:
+            chord (list): The chord to be played represented as a list of sur, midi note number, or frequency.
+            volume (float, optional): The volume of the note between 0 and 1 (default is 1.0).
+            duration (float, optional): The duration of the note in seconds (default is 1.0).
+            mode (str, optional): Valid options are 'sur', 'midi', or 'freq' (default is 'sur').
+        """
+        if mode=='sur':
+            midi_notes = [self.sur_to_midi(sur) for sur in chord]
+        elif mode=='midi':
+            midi_notes = chord
+        elif mode=='freq':
+            midi_notes = [self.frequency_to_midi(freq) for freq in chord]
+        else:
+            return
+        self.instrument.play_chord(midi_notes, volume, duration)
