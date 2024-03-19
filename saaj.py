@@ -1,22 +1,21 @@
 import numpy as np
-from bidict import bidict
 from scamp import Session
-import utils
+from music_elements import Note, Chord
 
 class Saaj:
     """
-    A musical instrument class that allows playing notes in accordance with the notation.
-    
+    Represents a musical instrument player.
+
     Attributes:
-        notation (dict): The notation information loaded from the configuration file.
+        session (Session): The session object for managing the tempo and parts.
+        instrument (Part): The instrument part for playing notes and chords.
+        sa_midi_note (int): The MIDI note number of the 'sa' sur.
     """
-    notation = utils.load_yaml('./configuration/notation.yml')
-    sur_to_degree = bidict(notation.sur_to_degree)
-    
-    def __init__(self, tempo=60, instrument='accordian', sa_midi=61):
+
+    def __init__(self, tempo: float = 60, instrument: str = 'accordian', sa_midi_note: int = 61):
         """
         Initializes a new instrument.
-        
+
         Args:
             tempo (float, optional): The tempo of the session in beats per minute (default is 60).
             instrument (str, optional): The name of the instrument (default is 'Accordian').
@@ -24,97 +23,30 @@ class Saaj:
         """
         self.session = Session(tempo)
         self.instrument = self.session.new_part(name=instrument)
-        self.sa_midi = sa_midi
-    
-    
-    @staticmethod
-    def frequency_to_midi(frequency):
+        self.sa_midi_note = sa_midi_note
+
+
+    def play_note(self, note: Note, volume: float = 1.0, duration: float = 1.0) -> None:
         """
-        Converts a frequency to its corresponding MIDI note number.
-        
+        Plays a note using the specified instrument.
+
         Args:
-            frequency (float): The input frequency in Hertz.
-        
-        Returns:
-            float: The MIDI note number corresponding to the input frequency.
+            note (Note): The note to be played. If None, plays a blank note for the duration.
+            volume (float, optional): The volume of the note. Defaults to 1.0.
+            duration (float, optional): The duration of the note in seconds. Defaults to 1.0.
         """
-        return 12 * np.log2(frequency/440) + 69
-    
-    
-    @staticmethod
-    def midi_to_frequency(midi):
-        """
-        Converts a MIDI note number to its corresponding frequency.
-        
-        Args:
-            midi (float): The MIDI note number.
-        
-        Returns:
-            float: The frequency in Hertz corresponding to the input MIDI note.
-        """
-        return 440 * 2**(midi-69)/12
-    
-    
-    def sur_to_midi(self, sur):
-        """
-        Converts a sur to its corresponding MIDI note number.
-        
-        Args:
-            sur (str): The sur in accordinace with the notation configuration file.
-        
-        Returns:
-            float: The MIDI note number corresponding to the sur frequency.
-        """
-        if sur=='':
-            midi_note = None
-        else:
-            midi_note = self.sa_midi + self.sur_to_degree[sur]
-        return midi_note
-    
-    
-    def play_note(self, note, volume=1.0, duration=1.0, mode='sur'):
-        """
-        Plays a single note using the instrument. Valid representations of a note include:
-            1. Sur in accordance with the notation configuration file.
-            2. MIDI note number.
-            3. Frequency in Hertz.
-        
-        Args:
-            note (str or float): The note to be played represented as a sur, midi note number, or frequency.
-            volume (float, optional): The volume of the note between 0 and 1 (default is 1.0).
-            duration (float, optional): The duration of the note in seconds (default is 1.0).
-            mode (str, optional): Valid options are 'sur', 'midi', or 'freq' (default is 'sur').
-        """
-        if mode=='sur':
-            midi_note = self.sur_to_midi(note)
-        elif mode=='midi':
-            midi_note = note
-        elif mode=='freq':
-            midi_note = self.frequency_to_midi(note)
-        else:
-            return
+        midi_note = None if note is None else self.sa_midi_note + note.note_value
         self.instrument.play_note(midi_note, volume, duration)
-    
-    
-    def play_chord(self, chord, volume=1.0, duration=1.0, mode='sur'):
+
+
+    def play_chord(self, chord: Chord, volume: float = 1.0, duration: float = 1.0) -> None:
         """
-        Plays a chord (simultanious notes) using the instrument. Valid representations of a chord include a list of:
-            1. Sur in accordance with the notation configuration file.
-            2. MIDI note number.
-            3. Frequency in Hertz.
-        
+        Plays a chord using the specified instrument.
+
         Args:
-            chord (list): The chord to be played represented as a list of sur, midi note number, or frequency.
-            volume (float, optional): The volume of the note between 0 and 1 (default is 1.0).
-            duration (float, optional): The duration of the note in seconds (default is 1.0).
-            mode (str, optional): Valid options are 'sur', 'midi', or 'freq' (default is 'sur').
+            chord (Chord): The chord to be played.
+            volume (float, optional): The volume of the chord. Defaults to 1.0.
+            duration (float, optional): The duration of the chord in seconds. Defaults to 1.0.
         """
-        if mode=='sur':
-            midi_notes = [self.sur_to_midi(sur) for sur in chord]
-        elif mode=='midi':
-            midi_notes = chord
-        elif mode=='freq':
-            midi_notes = [self.frequency_to_midi(freq) for freq in chord]
-        else:
-            return
+        midi_notes = [self.sa_midi_note + note.note_value for note in chord]
         self.instrument.play_chord(midi_notes, volume, duration)
