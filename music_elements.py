@@ -258,6 +258,7 @@ class Note:
         notes = [self + interval for interval in intervals]
         return Chord(notes)
     
+    
     def get_intervals_from_chord_name(self, chord_name: str) -> list[int]:
         """
         Gets the list of intervals for a given chord name.
@@ -276,6 +277,47 @@ class Note:
             # Add more chord names and their corresponding intervals here
         }
         return chord_names.get(chord_name, [])
+    
+    
+    def shift_saptak(self, saptak: int) -> 'Note':
+        """
+        Shifts the note by the specified number of saptaks.
+        
+        Args:
+            saptak (int): The number of saptaks to shift the note.
+        
+        Returns:
+            Note: The resulting Note object.
+        """
+        return Note(self.note_value + saptak * len(self.notes))
+    
+    
+    def get_distance(self, other: 'Note') -> int:
+        """
+        Gets the distance between the note and another note.
+        
+        Args:
+            other (Note): The other Note object.
+        
+        Returns:
+            int: The distance between the note and the other note.
+        """
+        return abs(self.note_value - other.note_value)
+    
+    
+    def get_interval(self, other: 'Note') -> int:
+        """
+        Gets the interval between the note and another note.
+        
+        Args:
+            other (Note): The other Note object.
+        
+        Returns:
+            int: The interval between the note and the other note.
+        """
+        return (other.note_value - self.note_value) % len(self.notes)
+
+
 
 
 class Chord:
