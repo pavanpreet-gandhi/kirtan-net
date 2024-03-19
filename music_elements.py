@@ -243,18 +243,39 @@ class Note:
         return hash(self.note_value)
     
     
-    def generate_chord(self, intervals: list[int]) -> 'Chord':
+    def generate_chord(self, intervals: Union[list[int], str]) -> 'Chord':
         """
-        Generates a chord from the note using a list of intervals.
+        Generates a chord from the note using a list of intervals or a chord name.
         
         Args:
-            intervals (list[int]): The list of intervals to be used to generate the chord.
+            intervals (Union[list[int], str]): The list of intervals or chord name to be used to generate the chord.
         
         Returns:
             Chord: The resulting Chord object.
         """
+        if isinstance(intervals, str):
+            intervals = self.get_intervals_from_chord_name(intervals)
         notes = [self + interval for interval in intervals]
         return Chord(notes)
+    
+    def get_intervals_from_chord_name(self, chord_name: str) -> list[int]:
+        """
+        Gets the list of intervals for a given chord name.
+        
+        Args:
+            chord_name (str): The chord name.
+        
+        Returns:
+            list[int]: The list of intervals for the chord name.
+        """
+        chord_names = {
+            'major': [0, 4, 7],
+            'minor': [0, 3, 7],
+            'diminished': [0, 3, 6],
+            'augmented': [0, 4, 8],
+            # Add more chord names and their corresponding intervals here
+        }
+        return chord_names.get(chord_name, [])
 
 
 class Chord:
