@@ -1,5 +1,5 @@
 bilaval:
-  sura: [s, r, g, m, p, d, n]
+  notes: [s, r, g, m, p, d, n]
   aroh: [s, r, g, m, g, r, g, p, d, n, s+]
   avroh: [s+, n, d, p, g, r, g, p, m, g, r, s]
   vadi: d
@@ -9,7 +9,7 @@ bilaval:
     jati: sampuran-sampuran
 
 asa:
-  sura: [s, r, g, m, p, d, n]
+  notes: [s, r, g, m, p, d, n]
   aroh: [s, r, m, p, d, s+]
   avroh: [s+, n, d, p, m, g, r, s]
   aroh_varjit: [g, n]
@@ -20,7 +20,7 @@ asa:
     jati: aurav-sampuran
 
 bhairo:
-  sura: [s, r., g, m, p, d., n]
+  notes: [s, r., g, m, p, d., n]
   aroh: [s, r., g, m, p, d., n, s+]
   avroh: [s+, n, d., p, m, g, r., s]
   vadi: d.
@@ -30,7 +30,7 @@ bhairo:
     jati: sampuran-sampuran
 
 suhi:
-  sura: [s, r, g, m, p, d, n., n]
+  notes: [s, r, g, m, p, d, n., n]
   aroh: [s, r, g, m, p, n, d, n, s+]
   avroh: [s+, n., d, p, m, g, r, g, r, s]
   vadi: p
@@ -40,7 +40,7 @@ suhi:
     jati: sampuran-sampuran
 
 gond:
-  sura: [s, r, g, m, p, d, n]
+  notes: [s, r, g, m, p, d, n]
   aroh: [s, r, g, m, p, d, n, d, n, s+]
   avroh: [s+, n, d, n, p, m, g, r, s]
   vadi: s
