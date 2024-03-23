@@ -32,7 +32,7 @@ class Raag:
         Returns:
             bool: True if the note is in the raag, False otherwise.
         """
-        return note in self.notes
+        return note.get_base_note() in self.notes
     
     
     def is_note_in_aroh(self, note: Note) -> bool:
@@ -45,7 +45,7 @@ class Raag:
         Returns:
             bool: True if the note is in the aroh, False otherwise.
         """
-        return note in self.aroh
+        return note.get_base_note() in self.aroh
     
     
     def is_note_in_avroh(self, note: Note) -> bool:
@@ -58,7 +58,7 @@ class Raag:
         Returns:
             bool: True if the note is in the avroh, False otherwise.
         """
-        return note in self.avroh
+        return note.get_base_note() in self.avroh
 
 
     def is_chord_in_raag(self, chord: Chord) -> bool:
@@ -71,7 +71,7 @@ class Raag:
         Returns:
             bool: True if the chord is in the raag, False otherwise.
         """
-        return all(note in self.notes for note in chord.notes)
+        return all(note.get_base_note() in self.notes for note in chord.notes)
     
     
     def is_chord_in_aroh(self, chord: Chord) -> bool:
@@ -84,7 +84,7 @@ class Raag:
         Returns:
             bool: True if the chord is in the aroh, False otherwise.
         """
-        return all(note in self.aroh for note in chord.notes)
+        return all(note.get_base_note() in self.aroh for note in chord.notes)
     
     
     def is_chord_in_avroh(self, chord: Chord) -> bool:
@@ -97,4 +97,4 @@ class Raag:
         Returns:
             bool: True if the chord is in the avroh, False otherwise.
         """
-        return all(note in self.avroh for note in chord.notes)
+        return all(note.get_base_note() in self.avroh for note in chord.notes)
