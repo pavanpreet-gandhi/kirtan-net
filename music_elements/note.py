@@ -12,20 +12,6 @@ class Note:
         saptak (int): The saptak (a.k.a. octave) value obtained by dividing the note value by the length of the notes dictionary.
         base_notation (str): The base notation of the note obtained from the notes dictionary using the base note value.
         notation (str): The complete notation of the note, including the base notation and any octave modifiers (+ or -).
-    
-    Methods:
-        initialize_from_note_value: Initializes a Note object from a note value.
-        initialize_from_notation: Initializes a Note object from a note notation.
-        __str__: Returns the string representation of the Note object.
-        __repr__: Returns the string representation of the Note object.
-        __add__: Adds an integer to the note value.
-        __sub__: Subtracts an integer from the note value.
-        __eq__: Checks if the note values are equal.
-        __ne__: Checks if the note values are not equal.
-        __lt__: Checks if the note value is less than the other note value.
-        __le__: Checks if the note value is less than or equal to the other note value.
-        __gt__: Checks if the note value is greater than the other note value.
-        __ge__: Checks if the note value is greater than or equal to the other note value.
     """
     
     notes: bidict[int, str]
@@ -243,42 +229,6 @@ class Note:
         return hash(self.note_value)
     
     
-    def generate_chord(self, intervals: Union[list[int], str]) -> 'Chord':
-        """
-        Generates a chord from the note using a list of intervals or a chord name.
-        
-        Args:
-            intervals (Union[list[int], str]): The list of intervals or chord name to be used to generate the chord.
-        
-        Returns:
-            Chord: The resulting Chord object.
-        """
-        if isinstance(intervals, str):
-            intervals = self.get_intervals_from_chord_name(intervals)
-        notes = [self + interval for interval in intervals]
-        return Chord(notes)
-    
-    
-    def get_intervals_from_chord_name(self, chord_name: str) -> list[int]:
-        """
-        Gets the list of intervals for a given chord name.
-        
-        Args:
-            chord_name (str): The chord name.
-        
-        Returns:
-            list[int]: The list of intervals for the chord name.
-        """
-        chord_names = {
-            'major': [0, 4, 7],
-            'minor': [0, 3, 7],
-            'diminished': [0, 3, 6],
-            'augmented': [0, 4, 8],
-            # Add more chord names and their corresponding intervals here
-        }
-        return chord_names.get(chord_name, [])
-    
-    
     def shift_saptak(self, saptak: int) -> 'Note':
         """
         Shifts the note by the specified number of saptaks.
@@ -303,109 +253,3 @@ class Note:
             int: The distance between the note and the other note.
         """
         return abs(self.note_value - other.note_value)
-    
-    
-    def get_interval(self, other: 'Note') -> int:
-        """
-        Gets the interval between the note and another note.
-        
-        Args:
-            other (Note): The other Note object.
-        
-        Returns:
-            int: The interval between the note and the other note.
-        """
-        return (other.note_value - self.note_value) % len(self.notes)
-
-
-
-
-class Chord:
-    """
-    Represents a musical chord.
-
-    Attributes:
-        notes (List['Note']): The list of Note objects that make up the chord.
-    """
-    
-    def __init__(self, notes: List['Note']):
-        """
-        Initializes a Chord object with a list of notes.
-
-        Args:
-            notes (List['Note']): The list of Note objects that make up the chord.
-        """
-        self.notes = notes
-
-
-    def __repr__(self) -> str:
-        """
-        Returns a string representation of the Chord object.
-
-        Returns:
-            str: The string representation of the Chord object.
-        """
-        return f"Chord({self.notes})"
-
-
-    def __str__(self) -> str:
-        """
-        Returns a string representation of the Chord object.
-
-        Returns:
-            str: The string representation of the Chord object.
-        """
-        return f"Chord({self.notes})"
-    
-    def __iter__(self):
-        """
-        Returns an iterator for the Chord object.
-
-        Returns:
-            Iterator: An iterator for the Chord object.
-        """
-        return iter(self.notes)
-    
-
-class Scale:
-    """
-    Represents a musical scale.
-
-    Attributes:
-        notes (Set['Note']): The set of Note objects that make up the scale.
-    """
-    
-    def __init__(self, notes: Set['Note']):
-        """
-        Initializes a Scale object with a set of notes.
-
-        Args:
-            notes (Set['Note']): The set of Note objects that make up the scale.
-        """
-        self.notes = notes
-
-
-    def is_note_in_scale(self, note: 'Note') -> bool:
-        """
-        Checks if a given note is in the scale.
-
-        Args:
-            note ('Note'): The Note object to check.
-
-        Returns:
-            bool: True if the note is in the scale, False otherwise.
-        """
-        return note in self.notes
-
-
-    def is_chord_in_scale(self, chord: 'Chord') -> bool:
-        """
-        Checks if a given chord is in the scale.
-
-        Args:
-            chord (Chord): The Chord object to check.
-
-        Returns:
-            bool: True if the chord is in the scale, False otherwise.
-        """
-        return all(note in self.notes for note in chord.notes)

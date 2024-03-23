@@ -1,6 +1,6 @@
-import numpy as np
 from scamp import Session
-from music_elements import Note, Chord
+from .note import Note
+from .chord import Chord
 
 class Instrument:
     """
