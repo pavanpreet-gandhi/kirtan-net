@@ -1,6 +1,11 @@
-from scamp import Session
 from .note import Note
 from .chord import Chord
+
+# imports scamp annd mutes warnings
+import logging
+logging.getLogger().setLevel(logging.ERROR)
+from scamp import Session
+logging.getLogger().setLevel(logging.WARNING)
 
 class Instrument:
     """
