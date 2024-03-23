@@ -1,6 +1,6 @@
-from typing import List
 from .note import Note
 from .chord import Chord
+from typing import List, Union
 
 class Raag:
     """
@@ -10,16 +10,16 @@ class Raag:
         notes (Set['Note']): The set of Note objects that make up the raag.
     """
     
-    def __init__(self, notes: List[Note], aroh: List[Note], avroh: List[Note]):
+    def __init__(self, notes: List[Union[str, int, Note]], aroh: List[Union[str, int, Note]], avroh: List[Union[str, int, Note]]):
         """
         Initializes a Raag object with a set of notes.
 
         Args:
-            notes (Set['Note']): The set of Note objects that make up the raag.
+            notes (List[Union[str, int, Note]]): The list of Note objects, str, or int that make up the raag.
         """
-        self.notes = sorted(notes)
-        self.aroh = sorted(aroh)
-        self.avroh = sorted(avroh)
+        self.notes = sorted([Note(note) if isinstance(note, (str, int)) else note for note in notes])
+        self.aroh = [Note(note) if isinstance(note, (str, int)) else note for note in aroh]
+        self.avroh = [Note(note) if isinstance(note, (str, int)) else note for note in avroh]
 
 
     def is_note_in_raag(self, note: Note) -> bool:
