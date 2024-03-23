@@ -8,7 +8,7 @@ class Note:
     Attributes:
         notes (bidict): A bidirectional dictionary mapping note values to note notations.
         note_value (int): The value of the note i.e. the distance of the note from the tonic note (Sa).
-        base_note_value (int): The base note value obtained by taking the modulo of the note value with 12 (since there are 12 notes in the chromatic scale).
+        base_value (int): The base note value obtained by taking the modulo of the note value with 12 (since there are 12 notes in the chromatic scale).
         saptak (int): The saptak (a.k.a. octave) value obtained by dividing the note value by the length of the notes dictionary.
         base_notation (str): The base notation of the note obtained from the notes dictionary using the base note value.
         notation (str): The complete notation of the note, including the base notation and any octave modifiers (+ or -).
@@ -16,7 +16,7 @@ class Note:
     
     notes: bidict[int, str]
     note_value: int
-    base_note_value: int
+    base_value: int
     saptak: int
     base_notation: str
     notation: str
@@ -62,9 +62,9 @@ class Note:
             note_value (int): The note value.
         """
         self.note_value: int = note_value
-        self.base_note_value: int = self.note_value % len(self.notes)
+        self.base_value: int = self.note_value % len(self.notes)
         self.saptak: int = self.note_value // len(self.notes)
-        self.base_notation: str = self.notes[self.base_note_value]
+        self.base_notation: str = self.notes[self.base_value]
         self.notation: str = self.base_notation + ('+' * self.saptak) if self.saptak > 0 else self.base_notation + ('-' * abs(self.saptak))
 
 
@@ -78,8 +78,8 @@ class Note:
         self.notation: str = notation
         self.base_notation: str = self.notation.replace('+', '').replace('-', '')
         self.saptak: int = self.notation.count('+') - self.notation.count('-')
-        self.base_note_value: int = self.notes.inverse[self.base_notation]
-        self.note_value: int = self.base_note_value + self.saptak * len(self.notes)
+        self.base_value: int = self.notes.inverse[self.base_notation]
+        self.note_value: int = self.base_value + self.saptak * len(self.notes)
     
     
     def getattr(self, attr: str) -> Union[int, str]:
@@ -253,3 +253,13 @@ class Note:
             int: The distance between the note and the other note.
         """
         return abs(self.note_value - other.note_value)
+
+    
+    def get_base_note(self) -> 'Note':
+        """
+        Gets the base note of the note.
+        
+        Returns:
+            Note: The base note of the note.
+        """
+        return Note(self.base_value)

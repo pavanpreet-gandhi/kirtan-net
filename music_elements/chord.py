@@ -7,7 +7,7 @@ class Chord:
 
     Attributes:
         notes (List[Note]): The list of Note objects that make up the chord.
-        base_note (Note): The base Note object of the chord.
+        root_note (Note): The root Note object of the chord.
         intervals (List[int]): The list of intervals that make up the chord.
     """
     
@@ -21,11 +21,11 @@ class Chord:
         """
         if isinstance(notes, list):
             self.notes = sorted(notes)
-            self.base_note = self.notes[0]
+            self.root_note = self.notes[0]
             self.intervals = [note.note_value - notes[0].note_value for note in notes]
         else:
-            self.base_note = notes
-            self.notes = [self.base_note + interval for interval in intervals]
+            self.root_note = notes
+            self.notes = [self.root_note + interval for interval in intervals]
             self.intervals = intervals
 
 
@@ -186,5 +186,5 @@ class Chord:
         new_intervals = self.intervals
         for _ in range(n):
             new_intervals = self.invert_intervals(new_intervals)
-        return Chord(self.base_note, new_intervals)
+        return Chord(self.root_note, new_intervals)
     
