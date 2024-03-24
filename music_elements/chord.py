@@ -188,3 +188,12 @@ class Chord:
             new_intervals = self.invert_intervals(new_intervals)
         return Chord(self.root_note, new_intervals)
     
+    
+    def get_all_inversions(self) -> List['Chord']:
+        """
+        Returns all possible inversions of the chord.
+
+        Returns:
+            List[Chord]: A sorted list of all possible inversions of the chord.
+        """
+        return sorted(list(set([self.invert(n) for n in range(len(self))])))
