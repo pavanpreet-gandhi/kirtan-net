@@ -197,3 +197,35 @@ class Chord:
             List[Chord]: A sorted list of all possible inversions of the chord.
         """
         return sorted(list(set([self.invert(n) for n in range(len(self))])))
+    
+    
+    def get_base_chord(self) -> 'Chord':
+        """
+        Returns the base chord of the chord.
+
+        Returns:
+            Chord: The base Chord object.
+        """
+        return Chord([note.get_base_note() for note in self.notes])
+    
+    
+    def shift_saptak(self, n: int) -> 'Chord':
+        """
+        Shifts the first note of the chord by one saptak and repeats n times.
+        e.g. n = 1: [s, g, p] -> [s+,  g,  p ]
+             n = 2: [s, g, p] -> [s+,  g+, p ]
+             n = 3: [s, g, p] -> [s+,  g+, p+]
+             n = 4: [s, g, p] -> [s++, g+, p+]
+             etc.
+
+        Args:
+            n (int): The number of times to shift the saptak.
+
+        Returns:
+            Chord: The resulting Chord object.
+        """
+        new_notes = []
+        for i, note in enumerate(self.notes):
+            k = n//len(self.notes) + int(n%len(self.notes)>i)
+            new_notes.append(note.shift_saptak(k))
+        return Chord(new_notes)

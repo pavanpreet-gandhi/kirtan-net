@@ -229,17 +229,17 @@ class Note:
         return hash(self.note_value)
     
     
-    def shift_saptak(self, saptak: int) -> 'Note':
+    def shift_saptak(self, n: int) -> 'Note':
         """
         Shifts the note by the specified number of saptaks.
         
         Args:
-            saptak (int): The number of saptaks to shift the note.
+            n (int): The number of saptaks to shift the note.
         
         Returns:
             Note: The resulting Note object.
         """
-        return Note(self.note_value + saptak * len(self.notes))
+        return Note(self.note_value + n * len(self.notes))
     
     
     def get_distance(self, other: 'Note') -> int:
