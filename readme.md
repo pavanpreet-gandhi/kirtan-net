@@ -32,8 +32,12 @@ A data driven exploration and heuristic based into the musical dynamics of kirta
 1. **Jati**: Jati indicates the number of notes in a raag. There are different jatis, such as sampuran (7 notes), aurav (5 notes), and shadav (6 notes), which define the complexity and structure of a raag.
 
 ## Python files
-1. `saaj.py`
 1. `utils.py`
+1. `music_elements/note.py`
+1. `music_elements/chord.py`
+1. `music_elements/raag.py`
+1. `music_elements/instrument.py`
 
 ## Notebooks
-1. `Saaj Demp.ipynb`
+1. `Demo Music Elements.ipynb`
+1. `Chord Dream.ipynb`
