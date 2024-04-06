@@ -1,5 +1,5 @@
 # KirtanNet
-A data driven exploration and heuristic based into the musical dynamics of kirtan.
+A data driven exploration and heuristic based into the musical dynamics of kirtan - and computational music theory in general.
 
 ## Definitions
 
