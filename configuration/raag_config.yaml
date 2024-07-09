@@ -60,9 +60,9 @@ sarang:
     jati: aurav-aurav
 
 kedara:
-  notes: [s, r, m, m', d, n., n, s+]
-  aroh: [s, m, p, m', p, d, n, s+]
-  avroh: [s+, n, d, p, m', p, d, n., d, p, m', p, d, p, m, r, s]
+  notes: [s, r, m, m*, d, n., n, s+]
+  aroh: [s, m, p, m*, p, d, n, s+]
+  avroh: [s+, n, d, p, m*, p, d, n., d, p, m*, p, d, p, m, r, s]
   avroh: 
   vadi: m
   samvadi: s
