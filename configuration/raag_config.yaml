@@ -48,3 +48,25 @@ gond:
   info:
     thaat: bilaval
     jati: sampuran-sampuran
+
+sarang:
+  notes: [s, r, m, p, n., n, s+]
+  aroh: [s, r, m, p, n, s+]
+  avroh: [s+, n., p, m, r, n, s]
+  vadi: r
+  samvadi: p
+  info:
+    thaat: kafi
+    jati: aurav-aurav
+
+kedara:
+  notes: [s, r, m, m', d, n., n, s+]
+  aroh: [s, m, p, m', p, d, n, s+]
+  avroh: [s+, n, d, p, m', p, d, n., d, p, m', p, d, p, m, r, s]
+  avroh: 
+  vadi: m
+  samvadi: s
+  info:
+    that: kalian
+    jati: aurav-chaanav
+  
